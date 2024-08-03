@@ -1,0 +1,802 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>20240425_DH勉強会資料</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(0, 0, 0, 0.06); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="8363c503-1af3-4de2-97e6-909475ffdfed" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/gradients_3.png" style="object-position:center 60%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">🐣</span></div><h1 class="page-title">20240425_DH勉強会資料</h1><p class="page-description"></p></header><div class="page-body"><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">TEIとは</summary><div class="indented"><ul id="a655fb44-eed0-476e-a4ae-808056db4422" class="bulleted-list"><li style="list-style-type:disc">Text Encoding Initiative（TEIガイドライン）<ul id="45bbfb3c-bdc8-48d6-b627-94213103dffe" class="bulleted-list"><li style="list-style-type:circle">人文学分野を主としたデジタル資料の構造的記述のためのガイドライン</li></ul><ul id="8cf39e50-7ab8-4639-8de5-6010136f8461" class="bulleted-list"><li style="list-style-type:circle">標準規格ではなく、ガイドライン<p id="441dd6f0-79d6-4069-abb7-b312183f0669" class="">→述語体系が学問分野によって異なるという人文学の性質を考慮し、実際の用法は利用者にゆだねる形をとる。よって、同じテキスト要素のマークアップにも様々な方法があり得る。</p></li></ul></li></ul><ul id="a97b75c5-5f34-4ac9-92d4-21fd13fb4594" class="bulleted-list"><li style="list-style-type:disc">歴史・背景<ul id="e3c7f70c-3408-4677-a028-a18d4d6aa255" class="bulleted-list"><li style="list-style-type:circle">1980年代　電子テキストのタグ付けの取り組み<ul id="3e49fe28-03e8-469f-90f9-1d26063de0d8" class="bulleted-list"><li style="list-style-type:square">→プロジェクトによりタグの付け方はバラバラ、共通化の必要性</li></ul></li></ul><ul id="2c66d847-c191-4d8a-b997-c93f9492e547" class="bulleted-list"><li style="list-style-type:circle">1987年　ポキプシー原則の策定<ul id="2b14cba4-6ce7-42bc-861d-ee651b9a7cd1" class="bulleted-list"><li style="list-style-type:square">人文学研究におけるデータ交換のための標準的な形式を提供すること等を取り決めた</li></ul><ul id="fe6f3df9-a3d0-414a-8fde-c0c05fe6abf1" class="bulleted-list"><li style="list-style-type:square">当初はXSLTベース→XMLベースに</li></ul></li></ul><ul id="916d7ad4-de01-4491-86c7-88eda1a8a609" class="bulleted-list"><li style="list-style-type:circle">TEI ガイドラインの策定</li></ul><ul id="5f69bcad-6d46-42d3-9a8b-b55cf7057e69" class="bulleted-list"><li style="list-style-type:circle">TEI 協会（Consortium）を設置</li></ul><ul id="c2a0ff08-dc07-4291-9037-303a18e5e28d" class="bulleted-list"><li style="list-style-type:circle">TEI P5（現在の最新バージョン）</li></ul></li></ul></div></details><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">日本における最近の動向</summary><div class="indented"><ul id="1554864e-a490-4dd6-a36e-71a78c6c40d9" class="bulleted-list"><li style="list-style-type:disc"><a href="https://github.com/TEI-EAJ">東アジア/日本語分科会</a>（2016年～）<ul id="7bc3c1bc-7ac1-4aa4-b0b8-9eca434b0da7" class="bulleted-list"><li style="list-style-type:circle">TEIガイドラインの翻訳</li></ul><ul id="d055d9ef-bc30-466a-b22d-48925077af52" class="bulleted-list"><li style="list-style-type:circle">日本語による日本語のためのテキスト構造化ガイドライン策定<ul id="fd0a117f-7eda-49fd-be68-8904187e9e11" class="bulleted-list"><li style="list-style-type:square"><a href="https://github.com/TEI-EAJ/jpn_classical/blob/master/jpn_classical_guideline.md">古典籍ガイドライン</a></li></ul></li></ul><ul id="393c3c90-97a8-4f53-a25d-a804b911b688" class="bulleted-list"><li style="list-style-type:circle">日本語資料のためのTEIガイドライン改訂の提案<ul id="cdb827e3-a2dc-4399-bc53-3c25ae059a93" class="bulleted-list"><li style="list-style-type:square">rubyタグの導入（2021）</li></ul></li></ul><ul id="7b0aa3d3-3eac-47f8-8a20-12746cc99ae5" class="bulleted-list"><li style="list-style-type:circle"><a href="https://tei.dhii.jp/teiviewer4eaj">古典籍ビューワ</a>の開発</li></ul></li></ul><ul id="086ebdfd-3584-482b-b053-9f16773cd633" class="bulleted-list"><li style="list-style-type:disc"><a href="https://tei.dhii.jp/about_tei">TEI研究会</a><ul id="12dfb67a-a720-425b-9508-6be7acff98c5" class="bulleted-list"><li style="list-style-type:circle">週2回、ガイドライン翻訳やマークアップに取り組んでいる</li></ul></li></ul><ul id="bc9de799-9fd9-4375-a4ea-615d13f3aa27" class="bulleted-list"><li style="list-style-type:disc">概説書の刊行<ul id="444032a2-4215-4b77-afe5-b2340fe93ecf" class="bulleted-list"><li style="list-style-type:circle">『<a href="https://bungaku-report.com/blog/cat43/">歴史情報学の教科書</a>』（文学通信、2019）</li></ul><ul id="25af7b59-60b5-4855-beeb-c38dad16cb3b" class="bulleted-list"><li style="list-style-type:circle">『<a href="https://bungaku-report.com/western-digital-humanities.html">欧米圏デジタル・ヒューマニティーズの基礎知識</a>』（文学通信、2021）</li></ul><ul id="ad9c9c85-14d7-4006-bb4e-81fe4227da35" class="bulleted-list"><li style="list-style-type:circle">『<a href="https://www.dhii.jp/dh/tei/">人文学のためのテキストデータ構築入門　TEIガイドラインに準拠した取り組みにむけて</a>』（文学通信、2022）</li></ul></li></ul></div></details><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">図書館とTEI</summary><div class="indented"><ul id="8147c1d4-a04f-4f47-8bda-55e9fe5c7925" class="bulleted-list"><li style="list-style-type:disc">図書館にとってのTEIのメリット<ul id="b5d0b971-23ae-4421-b88a-c9f0e2fa58c9" class="bulleted-list"><li style="list-style-type:circle">テキストとメタデータを一緒に流通させられる</li></ul><ul id="e9ed15e5-f424-476c-b70b-260d4d341a2b" class="bulleted-list"><li style="list-style-type:circle">テキストを修正した場合に、修正に関する情報も機械可読な形で記述・流通できる</li></ul><ul id="6470ccd6-e26f-4f9a-855f-032fdb1aecd6" class="bulleted-list"><li style="list-style-type:circle">写本等、従来のMARCでは表現が難しいメタデータの記述が柔軟にできる</li></ul></li></ul><ul id="22961fdc-4ce0-4a02-96e9-6d84719570e5" class="bulleted-list"><li style="list-style-type:disc"><a href="https://tei-c.org/extra/teiinlibraries/4.0.0/bptl-driver.html">Best Practices for TEI in Libraries</a><ul id="6b578e31-3943-4e4b-9c72-087be97acd5d" class="bulleted-list"><li style="list-style-type:circle">TEIでの<a href="http://d.hatena.ne.jp/keyword/%A5%DE%A1%BC%A5%AF%A5%A2%A5%C3%A5%D7">マークアップ</a>を5つの水準に分類<p id="00291437-16e2-4634-84ac-45ed2a0281e8" class="">→第4水準までは内容に踏み込まないマークアップ</p></li></ul><ul id="755863f2-0488-4c95-8877-8577b305362b" class="bulleted-list"><li style="list-style-type:circle">MARCとTEIのタグとの対応</li></ul></li></ul><ul id="c1827e5e-6b36-4a17-896f-18908ffaa17b" class="bulleted-list"><li style="list-style-type:disc">欧米の図書館の事例<ul id="bf9423bc-d9a5-4825-98a7-64bf0311a9d4" class="bulleted-list"><li style="list-style-type:circle">イスラーム<a href="https://www.fihrist.org.uk/">写本目録</a>（ケンブリッジ大学図書館）<ul id="94732349-f53e-4345-8ae8-da1a04d00ad1" class="bulleted-list"><li style="list-style-type:square">TEIを用いたマークアップにより古典籍・貴重書用のデジタル図書館システムにおいて、詳細な書誌情報を記述・表示</li></ul><ul id="1c74d4eb-7dd3-4d07-a679-bc804cfa7d04" class="bulleted-list"><li style="list-style-type:square">参考：「TEI (Text Encoding Initiative) × Library が拓くデジタル人文学と図書館の未来」（2023）</li></ul></li></ul></li></ul></div></details><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">TEIで何ができるのか</summary><div class="indented"><ul id="ff7af4f7-faca-439e-93ff-313aa5c52128" class="bulleted-list"><li style="list-style-type:disc"><a href="https://genji.dl.itc.u-tokyo.ac.jp/">デジタル源氏物語</a></li></ul><ul id="b7654ae8-bc3c-417c-816c-908b710532f5" class="bulleted-list"><li style="list-style-type:disc">ほかにもいろいろ</li></ul></div></details><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">TEIガイドラインについて</summary><div class="indented"><ul id="543bd3b2-b542-4b54-a345-2ebea04374a5" class="bulleted-list"><li style="list-style-type:disc">本体<ul id="a2193c19-2402-4bfc-a5ea-c69ebca130a7" class="bulleted-list"><li style="list-style-type:circle"><a href="https://tei-c.org/release/doc/tei-p5-doc/en/html/">https://tei-c.org/release/doc/tei-p5-doc/en/html/</a></li></ul><ul id="a7355448-9003-4162-8f38-0aae7bf205c9" class="bulleted-list"><li style="list-style-type:circle">日本語訳：<a href="https://github.com/TEI-EAJ/jp_guidelines/wiki">https://github.com/TEI-EAJ/jp_guidelines/wiki</a></li></ul></li></ul><ul id="e055f823-3084-43fe-87ed-5219ac8d6573" class="toggle"><li><details open=""><summary>目次</summary><ol type="1" id="5a3a0e9f-e9af-4889-8600-7a93f5868398" class="numbered-list" start="1"><li>TEIのインフラストラクチャ</li></ol><ol type="1" id="b5368505-2213-4ccb-8fdf-3ae741c073dc" class="numbered-list" start="2"><li>TEIヘッダ★<ul id="5c27cc5e-76c4-42ed-9ad9-e4dc537e4941" class="bulleted-list"><li style="list-style-type:disc">ヘッダは必須。メタデータ等を記述する。MARCよりも詳細な書誌事項を記述できるため、貴重書のメタデータ記述等に広く用いられている。</li></ul></li></ol><ol type="1" id="ae4739e7-97de-4666-8f39-ee30760e3057" class="numbered-list" start="3"><li>全てのTEI文書で利用可能なドキュメント★</li></ol><ol type="1" id="1e09409e-5293-4503-876c-618531303081" class="numbered-list" start="4"><li>デフォルトのテキスト構造★</li></ol><ol type="1" id="c6eae38c-ab83-460c-bacd-ea573c491e42" class="numbered-list" start="5"><li>文字、字形、表記方法</li></ol><ol type="1" id="bf278d08-c6aa-44cd-beaf-f45809a56281" class="numbered-list" start="6"><li>韻文</li></ol><ol type="1" id="ac34c410-89fd-444f-bea3-5266614a1225" class="numbered-list" start="7"><li>脚本</li></ol><ol type="1" id="0d9de766-a236-43da-984f-eb3f61159349" class="numbered-list" start="8"><li>音声の文字起こし</li></ol><ol type="1" id="2804d25a-f506-4e59-8c6f-d7b3140986a6" class="numbered-list" start="9"><li>辞書</li></ol><ol type="1" id="a7c322ec-9d22-46ba-82b1-113629b89c26" class="numbered-list" start="10"><li>手稿の記述</li></ol><ol type="1" id="4e9adf3b-f28d-486d-b4a0-aa4d1a1bf87e" class="numbered-list" start="11"><li>一次資料の表現</li></ol><ol type="1" id="70fa6627-6472-4d62-b89d-387925980abd" class="numbered-list" start="12"><li>校訂★</li></ol><ol type="1" id="4d15b599-2409-4e6f-864a-7c0d6c8c763c" class="numbered-list" start="13"><li>名称、日付、人、場所★</li></ol><ol type="1" id="6dcc7885-3301-41a5-b409-113d4dca209f" class="numbered-list" start="14"><li>表、式、図像、楽譜</li></ol><ol type="1" id="9738e332-a13e-461b-9788-fd5a4fc45271" class="numbered-list" start="15"><li>言語コーパス</li></ol><ol type="1" id="c5a4fd83-684e-4dee-be01-6872cf8ea6c0" class="numbered-list" start="16"><li>リンク、分割、連携</li></ol><ol type="1" id="d198d316-c0ed-41f0-9020-9138b0e5d599" class="numbered-list" start="17"><li>単純な解析の仕組み</li></ol><ol type="1" id="4b7a5d0a-348c-40d0-8d97-5d568c8a9762" class="numbered-list" start="18"><li>素性の構造</li></ol><ol type="1" id="12ec3715-75b1-4d83-9f2a-abb83e205712" class="numbered-list" start="19"><li>グラフ、ネットワーク、樹形図</li></ol><ol type="1" id="fcfdd648-f3af-41ca-835d-183d1d8f3d79" class="numbered-list" start="20"><li>非階層的な構造</li></ol><ol type="1" id="cf6a424e-1bd5-4f64-9fc2-4b16406b0724" class="numbered-list" start="21"><li>確実性、正確性、責任の所在</li></ol><ol type="1" id="3101d42b-87b7-431c-8953-60a44eaea89d" class="numbered-list" start="22"><li>文書作成のためのエレメント</li></ol><ol type="1" id="e73d0c0c-22b0-4656-83cb-d7905be57bb3" class="numbered-list" start="23"><li>TEIの利用</li></ol></details></li></ul></div></details><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">XMLの概要</summary><div class="indented"><ul id="a1634218-37d4-4ee3-b207-c01b236f6fda" class="bulleted-list"><li style="list-style-type:disc">テキストの意味や構造を記述（マークアップ）するための言語</li></ul><ul id="1836c9d8-bf0c-4007-bae7-17b35d822742" class="bulleted-list"><li style="list-style-type:disc">「タグ」によってテキストの意味や構造を表現する</li></ul><ul id="4493a7c9-ce93-4149-85c9-46dff377ce8b" class="bulleted-list"><li style="list-style-type:disc">エレメント（要素）とアトリビュート（属性）<figure id="ef8ef8db-8370-4692-912f-e922f3f7c2b3" class="image"><a href="20240425_DH%E5%8B%89%E5%BC%B7%E4%BC%9A%E8%B3%87%E6%96%99%208363c5031af34de297e6909475ffdfed/%25E3%2582%25B9%25E3%2582%25AF%25E3%2583%25AA%25E3%2583%25BC%25E3%2583%25B3%25E3%2582%25B7%25E3%2583%25A7%25E3%2583%2583%25E3%2583%2588_2024-04-23_223045.png"><img style="width:336px" src="20240425_DH%E5%8B%89%E5%BC%B7%E4%BC%9A%E8%B3%87%E6%96%99%208363c5031af34de297e6909475ffdfed/%25E3%2582%25B9%25E3%2582%25AF%25E3%2583%25AA%25E3%2583%25BC%25E3%2583%25B3%25E3%2582%25B7%25E3%2583%25A7%25E3%2583%2583%25E3%2583%2588_2024-04-23_223045.png"/></a></figure><figure id="cce79e80-4281-4afd-98d3-a259158fdc96" class="image"><a href="20240425_DH%E5%8B%89%E5%BC%B7%E4%BC%9A%E8%B3%87%E6%96%99%208363c5031af34de297e6909475ffdfed/%25E3%2582%25B9%25E3%2582%25AF%25E3%2583%25AA%25E3%2583%25BC%25E3%2583%25B3%25E3%2582%25B7%25E3%2583%25A7%25E3%2583%2583%25E3%2583%2588_2024-04-23_223100.png"><img style="width:336px" src="20240425_DH%E5%8B%89%E5%BC%B7%E4%BC%9A%E8%B3%87%E6%96%99%208363c5031af34de297e6909475ffdfed/%25E3%2582%25B9%25E3%2582%25AF%25E3%2583%25AA%25E3%2583%25BC%25E3%2583%25B3%25E3%2582%25B7%25E3%2583%25A7%25E3%2583%2583%25E3%2583%2588_2024-04-23_223100.png"/></a></figure></li></ul><ul id="34fee4a4-22d4-48a8-bd59-a37363c6223a" class="bulleted-list"><li style="list-style-type:disc">XMLの制約：タグは入れ子構造にできるが、オーバーラップはできない</li></ul><ul id="e4cb2ae8-f6a0-477f-8c75-00ed3e3c9343" class="bulleted-list"><li style="list-style-type:disc">TEIガイドラインは、テキストのどのような情報をどのようなタグや属性を使ってマークアップするかを定めたもの。</li></ul><ul id="b23f0696-c630-44d2-b236-ac7eb68bc0d3" class="bulleted-list"><li style="list-style-type:disc">TEI/XML：TEIガイドラインに沿って記述されたXML文書のこと</li></ul></div></details><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">TEI/XMLファイルの構成</summary><div class="indented"><ul id="3c9f2930-b914-4e78-9725-04fed11b77ea" class="bulleted-list"><li style="list-style-type:disc">XML宣言：この文書がXML文書であることを宣言</li></ul><ul id="00a1e034-d5a7-411a-9009-5f7011c67d02" class="bulleted-list"><li style="list-style-type:disc">名前空間：この文書がTEIの名前空間におけるタグを使用していることを表現</li></ul><ul id="0b80daa2-ebd9-4322-80de-4013e7935a43" class="bulleted-list"><li style="list-style-type:disc">TEIヘッダ：メタデータを記述</li></ul><ul id="121721dc-0c81-4cce-b6fb-40e31337743f" class="bulleted-list"><li style="list-style-type:disc">text：データ本体を記述</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="397abcde-3520-40ab-8dce-8a507fe1a7b4" class="code"><code class="language-XML">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;TEI xmlns=&quot;http://www.tei-c.org/ns/1.0&quot;&gt;
+&lt;teiHeader&gt;
+メタデータ
+&lt;/teiHeader&gt;
+&lt;text&gt;
+コンテンツ
+&lt;/text&gt;
+&lt;/TEI&gt;</code></pre><p id="47509f67-3511-4c0d-a05c-f089a0496921" class="">
+</p></div></details><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">マークアップする要素の検討</summary><div class="indented"><ul id="941447c6-e186-41ef-b4f1-ca7e66b1a058" class="toggle"><li><details open=""><summary>メタデータ</summary><ul id="f27fd0ae-d0b9-4029-b44d-f82b66d54f5d" class="bulleted-list"><li style="list-style-type:disc">メタデータはteiHeader要素内に記述する</li></ul><ul id="063ae72b-742f-4273-b96b-4855c26d1d6e" class="bulleted-list"><li style="list-style-type:disc">各タグの使用方法の詳細はTEIガイドライン第2章（<a href="https://www.dh.ku-orcas.kansai-u.ac.jp/?p=791">日本語訳</a>）及び参考文献2のChap4-3を参照</li></ul><ul id="edd579fd-469c-47eb-9a0e-bf15a569a775" class="bulleted-list"><li style="list-style-type:disc">teiヘッダは主に以下の5つの要素からなる<ul id="f7f0d9e1-e229-45e8-aa99-95003cdafa5c" class="bulleted-list"><li style="list-style-type:circle"><strong>filedesc★</strong>：コンピュータファイル自体の完全な書誌学的記述を含み、そこからテキストの利用者が適切な書誌学的引用情報を導き出すことができるもの。</li></ul><ul id="8c28229a-52d4-473e-b66d-ff5f0b6e924f" class="bulleted-list"><li style="list-style-type:circle"><strong>sourceDesc★</strong>：底本に関する情報を記述する</li></ul><ul id="71446940-64c9-49b0-99f1-71999577c0fe" class="bulleted-list"><li style="list-style-type:circle"><strong>encodingDesc★</strong>：テキストの正規化の方法や、符号化する者がソースの曖昧さをどのように解決したか、どのレベルの符号化や解析が適用されたかなどを記述する</li></ul><ul id="b1d6ccf2-35c3-4a02-9336-ccbf7b9e0d8d" class="bulleted-list"><li style="list-style-type:circle"><strong>ProfileDesc</strong>：そのテキストの主題、それが作成された状況、それを作成した人物、またはそれの作成に参加した人物など、テキストに関する分類情報と文脈情報を含む。</li></ul><ul id="45beee96-788a-4fef-9927-3b45095d9768" class="bulleted-list"><li style="list-style-type:circle"><strong>xenoData</strong>：非TEIメタデータを配置できる。</li></ul><ul id="e10b1b6b-ecca-48f0-b806-a512842866e2" class="bulleted-list"><li style="list-style-type:circle"><strong>RevisionDesc</strong>：改訂履歴、バージョン等に関する情報</li></ul><p id="63d462e1-904e-48b7-a21e-89742aaef6ac" class="">
+</p></li></ul><ul id="5dff0f3e-2dad-44d7-ba38-5d1eaac91121" class="bulleted-list"><li style="list-style-type:disc">マークアップする要素<table id="0906d3fc-4d56-4844-8554-3ce2b806e90b" class="simple-table"><tbody><tr id="c080acf0-8bea-4831-921b-7700a7cad012"><td id="FWo^" class="">FileDesc</td><td id="qdJE" class="">TitleStmt</td><td id="B{w^" class="">title</td><td id="Yu:S" class=""></td><td id="EC}@" class="">テキストのタイトル</td></tr><tr id="c249506b-380c-48d7-b5f0-31e988e5d3c2"><td id="FWo^" class=""></td><td id="qdJE" class=""></td><td id="B{w^" class="">author</td><td id="Yu:S" class=""></td><td id="EC}@" class="">テキストの著者</td></tr><tr id="1bbe3a5f-e1e2-4171-ba19-25b64337a4ef"><td id="FWo^" class=""></td><td id="qdJE" class="">respStmt</td><td id="B{w^" class="">resp</td><td id="Yu:S" class=""></td><td id="EC}@" class="">翻刻、符号化等の役割</td></tr><tr id="4ca372b0-e42c-4d39-936e-c5fd04f909f5"><td id="FWo^" class=""></td><td id="qdJE" class=""></td><td id="B{w^" class="">name</td><td id="Yu:S" class=""></td><td id="EC}@" class="">作業者</td></tr><tr id="1be6b3c7-9c45-4fa2-9247-6399f28b901b"><td id="FWo^" class=""></td><td id="qdJE" class="">PublicationStmt</td><td id="B{w^" class="">publisher</td><td id="Yu:S" class=""></td><td id="EC}@" class="">出版者</td></tr><tr id="5a8ef440-d5b2-41bc-ac8f-f26264b904f7"><td id="FWo^" class=""></td><td id="qdJE" class=""></td><td id="B{w^" class="">distributor</td><td id="Yu:S" class=""></td><td id="EC}@" class="">寄与者</td></tr><tr id="ac1bbc28-bd49-4fc3-a867-eb948127c3fe"><td id="FWo^" class=""></td><td id="qdJE" class=""></td><td id="B{w^" class="">date</td><td id="Yu:S" class=""></td><td id="EC}@" class="">出版日</td></tr><tr id="80f8f778-ea62-435e-b7a1-abdeba5e4b16"><td id="FWo^" class=""></td><td id="qdJE" class=""></td><td id="B{w^" class="">idno</td><td id="Yu:S" class=""></td><td id="EC}@" class="">識別子</td></tr><tr id="0cd16355-88bc-4b86-9f57-85be4b4de417"><td id="FWo^" class=""></td><td id="qdJE" class=""></td><td id="B{w^" class="">abailability</td><td id="Yu:S" class="">licence</td><td id="EC}@" class="">ライセンス</td></tr><tr id="2e90a3a9-d782-40a7-b34c-a0aee80a5202"><td id="FWo^" class="">SourcrDesc</td><td id="qdJE" class="">bibl</td><td id="B{w^" class="">title</td><td id="Yu:S" class=""></td><td id="EC}@" class="">底本のタイトル</td></tr><tr id="9a64454a-cd7e-4581-92fd-ef459d7aeb4c"><td id="FWo^" class=""></td><td id="qdJE" class=""></td><td id="B{w^" class="">author</td><td id="Yu:S" class=""></td><td id="EC}@" class="">底本の著者</td></tr></tbody></table></li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="d31c86b6-f56f-4de3-820b-6d3e6d67ba1e" class="code"><code class="language-XML">&lt;teiHeader&gt;
+    &lt;fileDesc&gt;
+      &lt;titleStmt&gt;
+        &lt;title&gt;平家物語&lt;/title&gt;
+        &lt;author&gt;（著者）&lt;/author&gt;
+        &lt;respStmt&gt;
+          &lt;resp&gt;翻刻&lt;/resp&gt;
+          &lt;name&gt;福嶋彩乃&lt;/name&gt;
+        &lt;/respStmt&gt;
+        &lt;respStmt&gt;
+          &lt;resp when=&quot;2024-04-23&quot;&gt;TEI符号化&lt;/resp&gt;
+          &lt;name&gt;村田祐菜&lt;/name&gt;
+        &lt;/respStmt&gt;
+      &lt;/titleStmt&gt;
+      &lt;publicationStmt&gt;
+        &lt;publisher&gt;村田祐菜※出版者&lt;/publisher&gt;
+        &lt;distributor&gt;DH勉強会※今回の会合名&lt;/distributor&gt;
+        &lt;date when=&quot;2024-04-25&quot;&gt;令和六年四月二十五日&lt;/date&gt;
+        &lt;idno&gt;00001&lt;/idno&gt;
+        &lt;availability&gt;
+					&lt;licence target=&quot;https://creativecommons.org/publicdomain/mark/1.0/&quot;&gt;
+					クリエイティブ・コモンズ・ライセンス0（CC0）&lt;/licence&gt;
+        &lt;/availability&gt;
+      &lt;/publicationStmt&gt;
+      &lt;sourceDesc&gt;
+        &lt;bibl&gt;&lt;title&gt;平家物語&lt;/title&gt;
+        &lt;author&gt;（著者）&lt;/author&gt;
+        &lt;/bibl&gt;
+      &lt;/sourceDesc&gt;
+    &lt;/fileDesc&gt;
+  &lt;/teiHeader</code></pre></details></li></ul><ul id="def8cc9d-ede7-4b88-8294-43d40c9451c1" class="toggle"><li><details open=""><summary>テキストの構造</summary><ul id="2543f292-ac5f-4afa-8c7b-1a58a0c78854" class="bulleted-list"><li style="list-style-type:disc">本文はtext要素内に記述</li></ul><ul id="3cbc7006-6716-448a-a52d-5b4e5a83dbd6" class="bulleted-list"><li style="list-style-type:disc">マークアップする要素<table id="aa32f98c-5769-4eb9-8988-ee71f2a64d41" class="simple-table"><tbody><tr id="999dfcd2-55a8-42fe-a460-3cd1d13d93b8"><td id="bvjS" class="">body</td><td id="BBBa" class="">div</td><td id="eh^T" class="">段落</td></tr><tr id="974f463c-3f20-49f5-9d64-bf7129ac53f9"><td id="bvjS" class=""></td><td id="BBBa" class="">p</td><td id="eh^T" class="">行</td></tr><tr id="f2c27b74-7bbb-4141-b845-07188e875fe7"><td id="bvjS" class=""></td><td id="BBBa" class="">head</td><td id="eh^T" class="">見出し</td></tr><tr id="f4ea1b53-2ef0-4d5d-a862-65b036be1c4d"><td id="bvjS" class=""></td><td id="BBBa" class="">lb</td><td id="eh^T" class="">※空タグ</td></tr></tbody></table><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="7126287f-59da-4d87-bf98-e97d130c6109" class="code"><code class="language-XML">&lt;text&gt;
+	&lt;body&gt;
+		&lt;div&gt;
+			&lt;p&gt;
+			あはさぬきに平家をそむき源氏をまちけるもの共&lt;lb/&gt;
+			かしこのほらこゝのたによりはせきたつてくははる源氏&lt;lb/&gt;
+			のせいほとなく三百よきにそなりにける&lt;/p&gt;&lt;p&gt;けふは日く&lt;lb/&gt;
+			れぬしうふはけつせしあすのいくさとさためて源氏&lt;lb/&gt;
+			ひきしりそかんとするところにおきの方よりしんしやう&lt;lb/&gt;
+			にかさりたるせうせん一そうなきさによす&lt;/p&gt;&lt;p&gt;いかにと見ると&lt;lb/&gt;
+			ころにあかきはかまにやなきのいつゝきぬきたるをんなの&lt;lb/&gt;
+			まことにゆうなりけるかせんちうよりいてゝみなくれなゐ&lt;lb/&gt;
+			のあふきの日いたしたるをふなはたにはさみたてくかへ&lt;lb/&gt;
+			…&lt;/p&gt;
+		&lt;/div&gt;
+	&lt;/body&gt;
+&lt;/text&gt;</code></pre></li></ul></details></li></ul><ul id="f4769162-b959-466e-9832-02f2085cfe50" class="toggle"><li><details open=""><summary>固有表現</summary><table id="9d61848e-175a-4631-a23b-275a13c788af" class="simple-table"><tbody><tr id="fe8e2a2f-9b3b-478a-a005-1c470fc37db8"><td id="DaGM" class="">日時</td><td id="@xq@" class="">date, @when</td></tr><tr id="07a62acc-cf7a-475e-a3be-36c84811e1fa"><td id="DaGM" class="">人名</td><td id="@xq@" class="">persName</td></tr><tr id="ac9d65ce-698b-41b7-b620-f4932c6d2458"><td id="DaGM" class="">地名</td><td id="@xq@" class="">placeName</td></tr></tbody></table><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="c11d7a5b-59cb-4a7a-9464-ae90ea956da7" class="code"><code class="language-XML">&lt;text&gt;
+	&lt;body&gt;
+		&lt;div&gt;
+			&lt;placeName&gt;あはさぬき&lt;/placeName&gt;に&lt;persName&gt;平家&lt;/persName&gt;
+			をそむき&lt;persName&gt;源氏&lt;/persName&gt;をまちけるもの共
+			かしこのほらこゝのたによりはせきたつてくははる&lt;persName&gt;源氏&lt;/persName&gt;
+			のせいほとなく三百よきにそなりにけるけふは日く
+			れぬしうふはけつせしあすのいくさとさためて&lt;persName&gt;源氏&lt;/persName&gt;
+			ひきしりそかんとするところにおきの方よりしんしやう
+			にかさりたるせうせん一そうなきさによすいかにと見ると
+			ころにあかきはかまにやなきのいつゝきぬきたるをんなの
+			まことにゆうなりけるかせんちうよりいてゝみなくれなゐ
+			のあふきの日いたしたるをふなはたにはさみたてくかへ
+			…&lt;/p&gt;
+		&lt;/div&gt;
+	&lt;/body&gt;
+&lt;/text&gt;</code></pre><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="6f41176b-2d79-4fcc-9f0c-e582dd1194a5" class="code"><code class="language-XML">&lt;text&gt;
+	&lt;body&gt;
+		&lt;note&gt;&lt;date when=&quot;1917-10-12&quot;&gt;大正六年十月十二日&lt;/date&gt;の夜、
+		&lt;placeName&gt;宇治山田&lt;/placeName&gt;にて、
+		ひとわらへなる死にをとげたる&lt;persName&gt;鎌田俊雄&lt;/persName&gt;のために。&lt;/note&gt;
+		&lt;lg&gt;&lt;head&gt;釋迢空&lt;/head&gt;
+		&lt;l xml:id=&quot;ori-z-arr-0553&quot;&gt;汝が命愛しみ泣くと 世ひとのまへ はヾからず哭く我とはなれり&lt;/l&gt;
+		&lt;l xml:id=&quot;ori-z-arr-0554&quot;&gt;たはやすく命ほろぼすますら雄と はた たはれ男となりゐけむ　汝&lt;/l&gt;
+		&lt;l xml:id=&quot;ori-z-arr-0555&quot;&gt;血あえたる汝がむくろを 犬じもの路人見つと 思ひ堪へずも&lt;/l&gt;
+		&lt;/lg&gt;
+	&lt;/body&gt;
+&lt;/text&gt;</code></pre></details></li></ul><ul id="42ad8cd1-ff1e-4665-b8ca-14ccb99466c1" class="toggle"><li><details open=""><summary>校異情報</summary><ul id="3599e965-778d-4df4-920b-fd66da5a5ee1" class="bulleted-list"><li style="list-style-type:disc">TEIヘッダの&lt;sourceDesc&gt;タグ内に&lt;listwit&gt;で諸本の情報を記述</li></ul><ul id="c2456017-6986-492d-8782-f053ec875130" class="bulleted-list"><li style="list-style-type:disc">&lt;app&gt;：校異情報がある箇所全体を囲む</li></ul><ul id="3e77150a-0850-46ba-b536-b9ed87b3bc9a" class="bulleted-list"><li style="list-style-type:disc">&lt;lem&gt;：本文（底本）の表現</li></ul><ul id="27180a0f-39e6-4b59-a9bf-5b983b94bd04" class="bulleted-list"><li style="list-style-type:disc">&lt;rdg&gt;：異文の表現</li></ul><ul id="3e8383d9-8d94-46db-8124-3d91d1652008" class="bulleted-list"><li style="list-style-type:disc">＠wit：その表現が現れる資料のIDを参照</li></ul><p id="75b4aba1-9717-4b1d-8e3f-fdf2d74d9d12" class="">①まずは諸本（今回は京都本と国会本）の表現を比較する</p><p id="b033b16a-477f-4b50-96a9-48ebdfd76347" class="">→赤字が異同のある箇所</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="c085cb4c-4da1-4945-8ab0-e841901de2fd" class="code"><code class="language-Plain Text">#京都本の記述
+あはさぬきに平家をそむき源氏をまちけるもの共
+かしこのほらこゝのたによりはせきたつてくははる源氏
+
+#国会本の記述
+あふぎのまと
+あわさぬきに平家をそむき源氏をまちけるものどもかしこのほら
+こゝのたによりはせきたつてくわゝる源氏のせいほともなく三百よき</code></pre><p id="241d6b06-340d-4349-8022-570bb19534e8" class="">②これをTEIで表現すると次のようになる。</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="0f5e062a-dfe4-438b-9d31-ea30172ff89e" class="code"><code class="language-XML">&lt;teiHeader&gt;
+	&lt;sourceDesc&gt;
+	&lt;listWit&gt;
+	&lt;witness xml:id=&quot;京都本&quot;&gt;百二十句本　京都本&lt;/witness&gt;
+	&lt;witness xml:id=&quot;国会本&quot;&gt;百二十句本　国会本&lt;/witness&gt;
+	&lt;/listWit&gt;
+	&lt;/sourceDesc&gt;
+&lt;/teiHeader&gt;
+&lt;text&gt;
+あはさぬきに平家をそむき源氏をまちけるもの&lt;app&gt;&lt;lem wit=&quot;#京都本&quot;&gt;共&lt;/lem&gt;&lt;rdg wit=&quot;#国会本&quot;&gt;ども&lt;/rdg&gt;&lt;/app&gt;
+かしこのほらこゝのたによりはせきたつてく&lt;app&gt;&lt;lem wit=&quot;#京都本&quot;&gt;は&lt;/lem&gt;&lt;rdg wit=&quot;#国会本&quot;&gt;は&lt;/rdg&gt;&lt;app&gt;る源氏
+…
+&lt;/text&gt;</code></pre><ul id="f0531fcf-9d8e-403b-bd47-0d7bd459e457" class="bulleted-list"><li style="list-style-type:disc">参考：<a href="https://candra.dhii.jp/nagasaki/tei/tei_viewer/tales_of_genji_01_01.xml">校異源氏物語</a></li></ul></details></li></ul><ul id="76ed3580-4d18-4378-b803-8043f30dd81d" class="toggle"><li><details open=""><summary>デジタル画像のリンク</summary><ul id="ba9ec83e-3117-4936-aaf8-7ec60b98d377" class="bulleted-list"><li style="list-style-type:disc">参考：<a href="https://github.com/TEI-EAJ/jp_guidelines/wiki/IIIF%E7%94%BB%E5%83%8F%E3%81%A8%E3%81%AE%E3%83%AA%E3%83%B3%E3%82%AF">TEI-EAJの解説</a></li></ul><ul id="661e17ab-2596-4669-aa02-458b036224bc" class="bulleted-list"><li style="list-style-type:disc">前準備<ul id="8c6267fa-fb69-42a1-bf8c-bdc19023cc0b" class="bulleted-list"><li style="list-style-type:circle">IIIFマニフェストURLの作成</li></ul></li></ul><ul id="c0c5d124-809d-4592-ba7d-5b397d2b9be1" class="bulleted-list"><li style="list-style-type:disc">マークアップ</li></ul><ol type="1" id="70e7e8f0-832f-4265-84f7-a44e7ac3f8a2" class="numbered-list" start="1"><li>facsimile 要素内に surfaceGrp 要素を追加する。その facs 属性に IIIF Manifest の URI を指定する。</li></ol><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="d71a02e6-5605-4f4f-b5eb-65de2ef52815" class="code"><code class="language-XML">&lt;TEI xmlns=&quot;http://www.tei-c.org/ns/1.0&quot;&gt;
+　　　&lt;teiHeader&gt;...&lt;/teiHeader&gt;
+　　　&lt;facsimile&gt;
+　　　　　　&lt;surfaceGrp
+　　　　　　　　　facs=&quot;https://iiif.dl.itc.u-tokyo.ac.jp/repo/iiif/102a847a-ea96-464a-84ba-cb714696bfbd/manifest&quot;&gt;
+　　　　　　...
+　　　　　　&lt;/surfaceGrp&gt;
+　　　&lt;/facsimile&gt;
+　　　&lt;text&gt;...&lt;text&gt;
+&lt;/TEI&gt;</code></pre><ol type="1" id="6c861e0d-af9a-448d-b970-750a56a03a44" class="numbered-list" start="2"><li>surfaceGrp 要素内に surface 要素、 graphic 要素を追加する。その url 属性に画像の URL を指定し、n 属性にカンバス ID を指定する。</li></ol><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="35ff836d-678b-4b6c-b3f0-f5005eec5203" class="code"><code class="language-XML">&lt;surfaceGrp ...&gt;
+　　　&lt;surface&gt;
+　　　　　　&lt;graphic url=&quot;https://iiif.dl.itc.u-tokyo.ac.jp/iiif/koshu/images/koshu.tif/full/8000,/0/default.jpg&quot;
+　　　　　　　　　n=&quot;https://iiif.dl.itc.u-tokyo.ac.jp/repo/iiif/102a847a-ea96-464a-84ba-cb714696bfbd/canvas/p1&quot;/&gt;
+　　　&lt;/surface&gt;
+　　　&lt;surface&gt; ... &lt;/surface&gt;
+&lt;/surfaceGrp&gt;</code></pre><ol type="1" id="0fb1000b-0427-4fbf-a321-5c2d11894000" class="numbered-list" start="3"><li>surface 要素内に zone 要素を追加する。その xml:id 属性に ID を与え、矩形の左下（lrx 属性と lry 属性）と右上（ulx 属性と uly 属性）の点を指定する。</li></ol><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="fd4f6eff-56c0-479a-bf3b-228a824a8527" class="code"><code class="language-XML">&lt;surface&gt;
+　　　&lt;graphic  ... /&gt;
+　　　&lt;zone lrx=&quot;7613&quot; lry=&quot;237&quot; ulx=&quot;7568&quot; uly=&quot;0&quot; xml:id=&quot;zone_l0001_l_0001&quot;/&gt;
+　　　&lt;zone ... /&gt;
+&lt;/surface&gt;</code></pre><p id="173a7f97-a71e-4ae4-b8d3-e00167d86d53" class="">4.特定の要素内に facs 属性を与え、テキストと画像を関連づける。</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="e523c5f3-400f-4fb5-b783-9d56e64b9b27" class="code"><code class="language-XML">&lt;span facs=&quot;#zone_l0001_l_0001&quot;&gt;　　 甲州法度之次第&lt;/span&gt;</code></pre></details></li></ul></div></details><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">表示</summary><div class="indented"><ul id="442ae80b-ae39-4754-843d-5eeacd976ede" class="bulleted-list"><li style="list-style-type:disc"><a href="https://candra.dhii.jp/nagasaki/tei/tei_viewer/">古典籍ビューワ</a>に読み込ませてみる</li></ul><p id="669035f6-20b1-4cac-9909-33f2c623b677" class="">
+</p></div></details><p id="5b5913eb-1387-4b80-8dbb-7379b4b6fd2d" class="">
+</p><ul id="2440daa5-7f12-4f01-8381-bdaff4471953" class="bulleted-list"><li style="list-style-type:disc">補足：Oxgen、VScode以外の選択肢<ul id="c2f62532-694b-4e16-836b-103d9295700b" class="bulleted-list"><li style="list-style-type:circle"><a href="https://zenn.dev/nakamura196/articles/b267eb0d3dae17">FairCopy</a>：GUIでタグ付けが可能。TEIファイルの概要がつかめたらこちらに移行するのもありかも。（年額が$99…）</li></ul><p id="3dae6c8d-8faa-414a-be49-54f4e9679ae4" class="">
+</p></li></ul><p id="37fad5d4-1f93-4d83-8dc3-dfeb093eaced" class="">参考文献</p><hr id="edfad0cb-a93c-462e-a857-daf05625c001"/><ol type="1" id="d19e3b12-0322-4b04-a9b2-863dc01dc78d" class="numbered-list" start="1"><li>Nancy Ide, C. Michael Sperberg-McQueen, Lou Burnard, TEI：それはどこからきたのか。そして、なぜ、今もなおここにあるのか？, デジタル・ヒューマニティーズ, 2018, 1 巻, p. 3-28, 公開日2019/01/18, Online ISSN 2189-7867, https://doi.org/10.24576/jadh.1.0_3</li></ol><ol type="1" id="a19ba288-c8c8-4699-88c7-20ae0ef6490b" class="numbered-list" start="2"><li>『<a href="https://www.dhii.jp/dh/tei/">人文学のためのテキストデータ構築入門　TEIガイドラインに準拠した取り組みにむけて</a>』（文学通信、2022）</li></ol><p id="633105e6-454a-4deb-8085-a8e2b1593dfe" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
