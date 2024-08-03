@@ -1,0 +1,709 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>VSCodeでTEIを編集する環境を整える</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(0, 0, 0, 0.06); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="4628563d-9aba-4b92-9e7a-11077ad88881" class="page sans"><header><h1 class="page-title">VSCodeでTEIを編集する環境を整える</h1><p class="page-description"></p></header><div class="page-body"><hr id="259fb30d-88e6-4ea8-9805-39316db4cc42"/><h3 id="258044a3-6af2-44ac-ae94-59463e873d07" class="">前提</h3><hr id="ca16403a-8d5d-43fe-aa63-0caecbd3cb1c"/><ul id="081f4008-3aa1-41f4-ad8d-81baf9c387aa" class="bulleted-list"><li style="list-style-type:disc">XMLファイルの編集には専用のエディタ（編集ソフト）が便利</li></ul><ul id="5d367925-84b1-40a7-a62e-bdbc23c7c9e3" class="bulleted-list"><li style="list-style-type:disc">TEIの分野ではOxgenが代表的なソフトだが、ライセンス費用が高いため、初学者や学術機関に所属していない人には手を出しにくい</li></ul><ul id="e225e1c6-35ed-41ce-911b-59826bdc1835" class="bulleted-list"><li style="list-style-type:disc">Oxgenはメールアドレスを登録すれば、試用版ライセンスを使うことも可能だが、お試し期間は30日。</li></ul><ul id="d75bea94-fcdb-4943-b86a-fc12750f4874" class="bulleted-list"><li style="list-style-type:disc">VSCodeは様々な拡張機能をインストールすることで機能追加ができるが、XML編集用、TEI/XML編集用の拡張機能も開発・公開されている。</li></ul><ul id="696aab90-cc7b-4d9b-b148-a854a6be4d86" class="bulleted-list"><li style="list-style-type:disc">今回の作業：VsCodeでTEI/XMLファイルが編集可能な環境を整える。</li></ul><p id="0a5e5210-4aad-4f0f-a8b2-c5a92b7060b1" class="">
+</p><h3 id="835d985e-1aa2-4fb7-95e2-8be02a901d39" class="">手順</h3><hr id="e9769e6f-5212-4a37-bfa9-908e416dacea"/><p id="5e490e40-f351-4dc2-b871-db8626916a4b" class="">
+</p><ol type="1" id="eb6957a2-2502-4ddc-96e8-8556b8bdefb0" class="numbered-list" start="1"><li>VSCodeのインストール<p id="64b363d5-4979-4038-ac62-85e9f06420f4" class=""><a href="https://code.visualstudio.com/download">https://code.visualstudio.com/download</a></p></li></ol><ol type="1" id="39d334e2-0c5a-4d7f-89dd-4ca5ec87c4e0" class="numbered-list" start="2"><li>拡張機能のインストール<ul id="88959a83-16d0-4eac-a0a4-80c4c9ebcb5c" class="bulleted-list"><li style="list-style-type:disc">TEI Japanese Editor<ul id="89ccdacf-1a56-45fa-a823-6b34913d68d4" class="bulleted-list"><li style="list-style-type:circle"> <a href="https://marketplace.visualstudio.com/items?itemName=ldas.vscode-japanese-tei">https://marketplace.visualstudio.com/items?itemName=ldas.vscode-japanese-tei</a></li></ul></li></ul><ul id="438b6744-9d1f-4749-ae97-1346762e7b1b" class="bulleted-list"><li style="list-style-type:disc">Scholarly XML<ul id="6547530a-a592-4495-b004-28cfd7a8693e" class="bulleted-list"><li style="list-style-type:circle"><a href="https://marketplace.visualstudio.com/items?itemName=raffazizzi.sxml">https://marketplace.visualstudio.com/items?itemName=raffazizzi.sxml</a></li></ul></li></ul><ul id="4bec63d2-9f59-446a-a497-831746158f2e" class="bulleted-list"><li style="list-style-type:disc">Auto Close Tag<ul id="fe04f2c8-ff4d-490c-bf94-5b6fb1cb2351" class="bulleted-list"><li style="list-style-type:circle"><a href="https://marketplace.visualstudio.com/items?itemName=formulahendry.auto-close-tag">https://marketplace.visualstudio.com/items?itemName=formulahendry.auto-close-tag</a></li></ul></li></ul><ul id="e6278b47-acfd-4d0d-82a4-f99c2b191119" class="bulleted-list"><li style="list-style-type:disc">XML Tools <ul id="309238e6-1afc-4095-894d-6727b14d6588" class="bulleted-list"><li style="list-style-type:circle"><a href="https://marketplace.visualstudio.com/items?itemName=DotJoshJohnson.xml">https://marketplace.visualstudio.com/items?itemName=DotJoshJohnson.xml</a></li></ul></li></ul><ul id="920b8988-5541-4f87-82cd-9957081ddf99" class="bulleted-list"><li style="list-style-type:disc">htmltagwrap <ul id="e464fb9a-cb24-42b5-8a2e-5e414587dfa3" class="bulleted-list"><li style="list-style-type:circle"> <a href="https://marketplace.visualstudio.com/items?itemName=bradgashler.htmltagwrap">https://marketplace.visualstudio.com/items?itemName=bradgashler.htmltagwrap</a></li></ul></li></ul><ul id="aa42a7aa-0c3d-4a12-8430-6ba39321e08a" class="bulleted-list"><li style="list-style-type:disc">Auto Rename Tag ★任意<ul id="45c3dc9e-7eb8-40a7-927e-5f2d31a5cb8d" class="bulleted-list"><li style="list-style-type:circle"> <a href="https://marketplace.visualstudio.com/items?itemName=formulahendry.auto-rename-tag">https://marketplace.visualstudio.com/items?itemName=formulahendry.auto-rename-tag</a> )</li></ul></li></ul><ul id="30d37149-f624-439e-9e32-9cf53a7e9b10" class="bulleted-list"><li style="list-style-type:disc">Close HTML/XML tag★任意<ul id="acba3ba0-2f8e-484d-95ab-d8bc8486555b" class="bulleted-list"><li style="list-style-type:circle"><a href="https://marketplace.visualstudio.com/items?itemName=Compulim.compulim-vscode-closetag">https://marketplace.visualstudio.com/items?itemName=Compulim.compulim-vscode-closetag</a></li></ul></li></ul></li></ol><ol type="1" id="be38e034-9d05-4541-8bd1-206c73271df9" class="numbered-list" start="3"><li>設定可能な項目<ul id="c6d0aa7d-4f21-4a07-92b5-7914cd7c7296" class="bulleted-list"><li style="list-style-type:disc">TEI japaneseEditor<ul id="12d18544-fc65-4348-9957-fe98e5b12903" class="bulleted-list"><li style="list-style-type:circle">フォントサイズ、ODDファイル、適用するCSSファイル等</li></ul></li></ul><ul id="123bce2a-d2e3-4b04-b76c-7f8343fbf5ab" class="bulleted-list"><li style="list-style-type:disc">拡張機能を右クリック＞拡張機能の設定を開く</li></ul><ul id="e1e4adcf-f08e-47f9-b237-b8c8893983a4" class="bulleted-list"><li style="list-style-type:disc">ODDファイル：vs-code-japanese-teiを選択※表示が縦書きになる</li></ul></li></ol><ol type="1" id="17c9e5d4-3d26-43dc-9b5c-ceff4b55ea1b" class="numbered-list" start="4"><li>日本語スキーマファイルの作成と適用<ul id="5a4b8409-95d3-45fd-bdc7-aecf68e9a9e9" class="bulleted-list"><li style="list-style-type:disc">TEIスキーマ<ul id="214ffdd5-d22d-4eb7-9e90-93dafe798a06" class="bulleted-list"><li style="list-style-type:circle">TEI/XMLのタグのルールを記述した「スキーマ」ファイルを定義し、それを読み込むことで使用できるタグの候補や解説を表示することができる。</li></ul></li></ul><ul id="b2df031d-2840-480c-863b-3b74a3018b53" class="bulleted-list"><li style="list-style-type:disc"><a href="https://digitalnagasaki.hatenablog.com/entry/2017/08/26/095642">Romaの解説</a><ul id="8ed50908-7f89-4309-aeb9-6f9f2f41e1c2" class="bulleted-list"><li style="list-style-type:circle">TEIのスキーマファイルを編集するためのウェブアプリケーション</li></ul></li></ul><ul id="116e00d0-7db9-448f-b144-6ec599e3e126" class="bulleted-list"><li style="list-style-type:disc">手順<ul id="bae5669e-621a-4f61-877a-9dd94bbb1e39" class="bulleted-list"><li style="list-style-type:circle"><a href="https://romabeta.tei-c.org/">https://romabeta.tei-c.org/</a>にアクセス</li></ul><ul id="5ea8f1b6-1296-450b-87a5-0cdce287e5cf" class="bulleted-list"><li style="list-style-type:circle">TEI_ALL（customize by reducing TEI）を選択し、STARTを押下</li></ul><ul id="48fe3193-89ca-4d25-b52e-1ed659b9e361" class="bulleted-list"><li style="list-style-type:circle">Language of elements and attributes　と　Documentation Language　を日本語にする</li></ul><ul id="664301c7-9477-47c5-9b80-64032e34f35c" class="bulleted-list"><li style="list-style-type:circle">「RELAX NG schema」を選択し、ファイルをダウンロード。任意の場所に置く。</li></ul></li></ul></li></ol><ol type="1" id="7c958eba-99b6-49e2-bfdf-64bd3e3a74c1" class="numbered-list" start="5"><li>ユーザスニペット<ul id="7dc7f87c-3f5b-4ec7-bb12-e61205bf23ca" class="bulleted-list"><li style="list-style-type:disc">「ファイル→ユーザ設定→ユーザー スニペットの構成」で任意のファイル名（「teiall.json」）を入力して新しいファイルを作成する。</li></ul><ul id="9a663678-4774-42b5-bdc0-c086a486c56d" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-red">2行目&lt;?xml-model href=&quot;tei_all.rng&quot; schematypens=&quot;http://relaxng.org/ns/structure/1.0&quot; type=&quot;application/xml&quot;?&gt;,”のhrefにはスキーマファイルのパスを入れる</mark></li></ul></li></ol><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="7acbbbfc-8efd-4d84-bae9-76cff24dc35a" class="code"><code class="language-JSON">	&quot;TEI P5 All&quot;: {
+		&quot;prefix&quot;: &quot;teiall&quot;,
+		&quot;body&quot;: [
+			&quot;&lt;?xml version=\&quot;1.0\&quot; encoding=\&quot;UTF-8\&quot;?&gt;&quot;,
+			&quot;&lt;?xml-model href=\&quot;tei_all.rng\&quot; schematypens=\&quot;http://relaxng.org/ns/structure/1.0\&quot; type=\&quot;application/xml\&quot;?&gt;&quot;,
+			&quot;&lt;TEI xmlns=\&quot;http://www.tei-c.org/ns/1.0\&quot;&gt;&quot;,
+			&quot;  &lt;teiHeader&gt;&quot;,
+			&quot;      &lt;fileDesc&gt;&quot;,
+			&quot;         &lt;titleStmt&gt;&quot;,
+			&quot;            &lt;title&gt;${1:Title}&lt;/title&gt;&quot;,
+			&quot;         &lt;/titleStmt&gt;&quot;,
+			&quot;         &lt;publicationStmt&gt;&quot;,
+			&quot;            &lt;p&gt;${2:Publication Information}&lt;/p&gt;&quot;,
+			&quot;         &lt;/publicationStmt&gt;&quot;,
+			&quot;         &lt;sourceDesc&gt;&quot;,
+			&quot;            &lt;p&gt;${3:Information about the source}&lt;/p&gt;&quot;,
+			&quot;         &lt;/sourceDesc&gt;&quot;,
+			&quot;      &lt;/fileDesc&gt;&quot;,
+			&quot;  &lt;/teiHeader&gt;&quot;,
+			&quot;  &lt;text&gt;&quot;,
+			&quot;      &lt;body&gt;&quot;,
+			&quot;         &lt;p&gt;${4:Some text here.}&lt;/p&gt;&quot;,
+			&quot;      &lt;/body&gt;&quot;,
+			&quot;  &lt;/text&gt;&quot;,
+			&quot;&lt;/TEI&gt;&quot;
+		],
+		&quot;description&quot;: &quot;Oxygen-like TEI (P5) All Boilerplate&quot;
+	}</code></pre><p id="6b4e285e-ca8d-4435-bd2e-c714dadb3544" class="">
+</p><h3 id="363d2f8c-d924-4729-ae7a-4862979de67f" class="">動作確認</h3><hr id="19feb26c-6313-40e4-ae5a-c979108b1ea9"/><ul id="dbc2bdc1-8b5c-4bbc-96af-c6a3d1aec382" class="bulleted-list"><li style="list-style-type:disc">「ファイル」＞「新しいテキストファイル」でxmlファイルを作成→名前を付けて保存する。</li></ul><ul id="e9100d19-061d-40e6-a9c3-223b2037aa14" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-default">「teiall」と入力し、5で作成したユーザスニペットが呼び出せることを確認する。</mark></li></ul><ul id="86d34b64-e14a-4848-a9fb-a76dba74d456" class="bulleted-list"><li style="list-style-type:disc">「&lt;」と入力し、候補のTEIタグと日本語の説明文が表示されることを確認する。</li></ul><ul id="d57c52e6-97cb-48a7-8415-27ac3e83a73e" class="bulleted-list"><li style="list-style-type:disc">TEIJapaneseEditorの機能<ul id="b5aeadcc-f48a-4716-9e00-5a460ee0febb" class="bulleted-list"><li style="list-style-type:circle">ODDファイルに応じて縦書き/横書きに表示が切り替わる</li></ul><ul id="7a5e69b9-220d-425c-a051-80cb390f590a" class="bulleted-list"><li style="list-style-type:circle">コマンドが使えるか<table id="99495ced-01a8-4c44-87a9-eb4ddf536e03" class="simple-table"><tbody><tr id="7e52ec25-2e28-46cb-951a-0a3b3ec261a8"><td id="&gt;U^k" class="">Generate panel / プレビューを開く</td><td id="R`^Y" class="">ctrl-k v</td></tr><tr id="44985220-1613-4802-bda5-c539056bf51d"><td id="&gt;U^k" class="">Insert ruby / ルビを挿入する</td><td id="R`^Y" class="">ctrl-k r</td></tr><tr id="c66a9389-791a-4be9-937e-d5f1dc398482"><td id="&gt;U^k" class="">Insert warichu / 割注を挿入する</td><td id="R`^Y" class="">ctrl-k w</td></tr></tbody></table></li></ul></li></ul><h3 id="0270b34a-8e2b-44c3-9294-cccca8c0a6b9" class="">応用</h3><hr id="7159870e-6175-46d0-b922-c7786fc116b1"/><ul id="0eb53ff6-84d2-4822-be48-0384b64caedf" class="bulleted-list"><li style="list-style-type:disc">自分で拡張機能を作成する</li></ul><figure id="07ff8ab2-adbd-4c50-aad9-7a3df34fe63d"><a href="https://zenn.dev/nakamura196/books/d5b50bb610a9e2" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">TEI/XMLファイルの編集/表示用のVSCode拡張機能の開発</div><div class="bookmark-description">TEI/XMLファイルの編集/表示用のVSCode拡張機能を開発します。  本開発を通じて得られたVSCodeの拡張機能開発の知見を備忘録的にまとめます。  なお初学者が執筆しているため、記載内容に誤りや適切でない記述が含まれる可能性があります。ご注意ください。</div></div><div class="bookmark-href"><img src="https://static.zenn.studio/images/icon.png" class="icon bookmark-icon"/>https://zenn.dev/nakamura196/books/d5b50bb610a9e2</div></div><img src="https://static.zenn.studio/images/logo-only-dark.png" class="bookmark-image"/></a></figure><p id="1adc7b4b-221c-488b-a990-92e77fb85540" class="">
+</p><h3 id="d4a8cd4e-1a7c-4fcc-8132-c645fbe46c59" class="">参考サイト</h3><hr id="2266f4c7-7e65-4e84-b2d8-ece4371bbf42"/><p id="9e78d1ec-b707-476f-9733-4844a3b467b4" class="">
+</p><figure id="4cce4efb-071f-423b-b212-9e76260284de"><a href="https://zenn.dev/nakamura196/articles/d2733cc49d1239" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">TEI/XMLファイルの編集を支援するVSCode拡張機能の使用例</div><div class="bookmark-description">本記事では、上記の拡張機能を使った、TEI/XMLファイルの編集方法について紹介します。なお、上記拡張機能は筆者による独自開発のもので、使い勝手などに改善の余地が多々ある状態です。ご使用される際は、この点についてご了解いただけますと幸いです。</div></div><div class="bookmark-href"><img src="https://static.zenn.studio/images/icon.png" class="icon bookmark-icon"/>https://zenn.dev/nakamura196/articles/d2733cc49d1239</div></div><img src="https://res.cloudinary.com/zenn/image/upload/s--HKTvDv6Q--/c_fit%2Cg_north_west%2Cl_text:notosansjp-medium.otf_55:TEI%252FXML%25E3%2583%2595%25E3%2582%25A1%25E3%2582%25A4%25E3%2583%25AB%25E3%2581%25AE%25E7%25B7%25A8%25E9%259B%2586%25E3%2582%2592%25E6%2594%25AF%25E6%258F%25B4%25E3%2581%2599%25E3%2582%258BVSCode%25E6%258B%25A1%25E5%25BC%25B5%25E6%25A9%259F%25E8%2583%25BD%25E3%2581%25AE%25E4%25BD%25BF%25E7%2594%25A8%25E4%25BE%258B%2Cw_1010%2Cx_90%2Cy_100/g_south_west%2Cl_text:notosansjp-medium.otf_37:nakamura196%2Cx_203%2Cy_121/g_south_west%2Ch_90%2Cl_fetch:aHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EtL0FPaDE0R2pkd3BpX1gzTWIzV3VqTnVnV2tPTlJlU3VsNFNTN1BNMWlPQm9LRm5JPXM5Ni1j%2Cr_max%2Cw_90%2Cx_87%2Cy_95/v1627283836/default/og-base-w1200-v2.png" class="bookmark-image"/></a></figure><figure id="8e5e972a-cdd8-4b5c-b442-22436f9b152b"><a href="https://digitalnagasaki.hatenablog.com/entry/2020/02/14/031218" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">フリーソフトで快適TEI/XML（Oxygenを使わない道） - digitalnagasakiのブログ</div><div class="bookmark-description">TEI/XMLは、基本的には裏側で勝手にタグがついたりそれに対応した表示が勝手に行われてくれるものであり、個別には色々なソリューションがあります。 しかし一方で、「どういうタグをつけるか」「どういう風に構造化するか（＝それにあわせてどういうタグをどう使うか）」といったことを 考える際には、今のところ、XMLを直に書いた…</div></div><div class="bookmark-href"><img src="https://digitalnagasaki.hatenablog.com/icon/link" class="icon bookmark-icon"/>https://digitalnagasaki.hatenablog.com/entry/2020/02/14/031218</div></div><img src="https://cdn-ak.f.st-hatena.com/images/fotolife/d/digitalnagasaki/20200214/20200214024406.png" class="bookmark-image"/></a></figure><figure id="653e279a-be8e-4789-bd19-207221e3d04b"><a href="https://scrapbox.io/utdh/VSCode_で_XML（Scholarly_XML🚧編）" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">VSCode で XML（Scholarly XML🚧編） - UTDH / 東京大学人文情報学</div><div class="bookmark-description">⚠️ 2020-11現在、安定動作する環境が必要な場合はVSCodeでXMLを使うを参照 今年（2020年）登場した、TEIにより親和的な新しい拡張機能を紹介 インストール VSCode をインストール 拡張機能 Scholarly XML https://marketplace.visualstudio.com/items?itemName=raffazizzi.sxml をインストール 組み込</div></div><div class="bookmark-href"><img src="https://scrapbox.io/assets/img/favicon/apple-touch-icon-180.png" class="icon bookmark-icon"/>https://scrapbox.io/utdh/VSCode_で_XML（Scholarly_XML🚧編）</div></div><img src="https://scrapbox.io/assets/img/content-logo.png" class="bookmark-image"/></a></figure></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
